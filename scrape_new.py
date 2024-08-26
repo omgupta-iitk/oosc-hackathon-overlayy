@@ -47,28 +47,28 @@ def download_and_extract(url, extract_to='.'):
     return os.path.join(extract_to, local_filename.replace('.zip', ''))
 
 def setup_chrome():
-    # chrome_binary = os.path.join(CHROME_PATH, 'chrome')
-    # chromedriver_binary = os.path.join(CHROMEDRIVER_PATH, 'chromedriver')
+     chrome_binary = os.path.join(CHROME_PATH, 'chrome')
+     chromedriver_binary = os.path.join(CHROMEDRIVER_PATH, 'chromedriver')
 
-    # if not os.path.exists(chrome_binary):
-    #     print("Chrome not found. Downloading and extracting Chrome...")
-    #     download_and_extract(CHROME_URL)
-    #     print("Chrome downloaded and extracted.")
-    # else:
-    #     print("Chrome already installed.")
+     if not os.path.exists(chrome_binary):
+         print("Chrome not found. Downloading and extracting Chrome...")
+         download_and_extract(CHROME_URL)
+         print("Chrome downloaded and extracted.")
+     else:
+         print("Chrome already installed.")
 
-    # if not os.path.exists(chromedriver_binary):
-    #     print("ChromeDriver not found. Downloading and extracting ChromeDriver...")
-    #     download_and_extract(CHROMEDRIVER_URL)
-    #     print("ChromeDriver downloaded and extracted.")
-    # else:
-    #     print("ChromeDriver already installed.")
+     if not os.path.exists(chromedriver_binary):
+         print("ChromeDriver not found. Downloading and extracting ChromeDriver...")
+         download_and_extract(CHROMEDRIVER_URL)
+         print("ChromeDriver downloaded and extracted.")
+     else:
+         print("ChromeDriver already installed.")
 
-    # # Make sure the binaries are executable
-    # os.chmod(chrome_binary, 0o755)
-    # os.chmod(chromedriver_binary, 0o755)
-    chrome_binary = "jelo"
-    chromedriver_binary = "fdgs"
+     # Make sure the binaries are executable
+     os.chmod(chrome_binary, 0o755)
+     os.chmod(chromedriver_binary, 0o755)
+    #chrome_binary = "jelo"
+    #chromedriver_binary = "fdgs"
 
     return chrome_binary, chromedriver_binary
 
