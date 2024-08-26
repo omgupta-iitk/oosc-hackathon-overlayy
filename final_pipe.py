@@ -15,15 +15,16 @@ def merge_json(json1, json2):
         else:
             merged[key] = value
     return merged
-
-begin() 
+print('Enter Url :')
+url = input()
+begin(url) 
 questions = run()
 
 with open("links.json",'r') as file:
     data = json.load(file)
 
 
-ques = {"url": base_link(),"questions":questions}
+ques = {"url": url,"questions":questions}
 merged_json = merge_json(ques, data)
 with open("output.json", "w") as json_file:
     json.dump(merged_json, json_file, indent=4)
