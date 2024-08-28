@@ -47,38 +47,40 @@ def download_and_extract(url, extract_to='.'):
     return os.path.join(extract_to, local_filename.replace('.zip', ''))
 
 def setup_chrome():
-     chrome_binary = os.path.join(CHROME_PATH, 'chrome')
-     chromedriver_binary = os.path.join(CHROMEDRIVER_PATH, 'chromedriver')
+    chrome_binary = os.path.join(CHROME_PATH, 'chrome')
+    chromedriver_binary = os.path.join(CHROMEDRIVER_PATH, 'chromedriver')
 
-     if not os.path.exists(chrome_binary):
-         print("Chrome not found. Downloading and extracting Chrome...")
-         download_and_extract(CHROME_URL)
-         print("Chrome downloaded and extracted.")
-     else:
-         print("Chrome already installed.")
+    if not os.path.exists(chrome_binary):
+        print("Chrome not found. Downloading and extracting Chrome...")
+        download_and_extract(CHROME_URL)
+        print("Chrome downloaded and extracted.")
+    else:
+        print("Chrome already installed.")
 
-     if not os.path.exists(chromedriver_binary):
-         print("ChromeDriver not found. Downloading and extracting ChromeDriver...")
-         download_and_extract(CHROMEDRIVER_URL)
-         print("ChromeDriver downloaded and extracted.")
-     else:
-         print("ChromeDriver already installed.")
+    if not os.path.exists(chromedriver_binary):
+        print("ChromeDriver not found. Downloading and extracting ChromeDriver...")
+        download_and_extract(CHROMEDRIVER_URL)
+        print("ChromeDriver downloaded and extracted.")
+    else:
+        print("ChromeDriver already installed.")
 
-     # Make sure the binaries are executable
-     os.chmod(chrome_binary, 0o755)
-     os.chmod(chromedriver_binary, 0o755)
+    # Make sure the binaries are executable
+    os.chmod(chrome_binary, 0o755)
+    os.chmod(chromedriver_binary, 0o755)
     #chrome_binary = "jelo"
     #chromedriver_binary = "fdgs"
 
     return chrome_binary, chromedriver_binary
 
 def setup_driver(chrome_binary, chromedriver_binary):
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
+    chrome_options = Options()
+    chrome_options.binary_location = chrome_binary
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    
+    service = Service(executable_path=chromedriver_binary)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
 import requests
@@ -369,8 +371,8 @@ def save_text_for_top_segments(base_url, chrome_binary, chromedriver_binary, top
         json.dump(data, json_file, indent=4)
 
     print(f"Updated JSON data has been written to links.json")
-base_url = "https://spo.iitk.ac.in"
-def begin():
+# base_url = "https://spo.iitk.ac.in"
+def begin(base_url):
     # base_url = "https://github.com"  # Replace with the target URL
     
     print("Starting web scraping process...")
